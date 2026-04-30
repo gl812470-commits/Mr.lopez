@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRIEFS | Men's Essentials</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Premium Dark Palette */
+      --bg: #070707;
+      --surface: #121212;
+      --card: #161616;
+      --border: #282828;
+      --accent: #d4af37; /* Champagne Gold */
+      --accent-dim: #b5952f;
+      --text: #f8f6f0;
+      --muted: #9e9e9e;
+      --danger: #e66c6c;
+      --success: #65c994;
+      --radius: 16px;
+      --glow: rgba(212, 175, 55, 0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, var(--bg) 70%);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 7, 7, 0.85);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 76px;
+      transition: background 0.3s ease;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; gap: 40px; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; width: 0; height: 1px;
+      bottom: -4px; left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 120px 5vw 100px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: var(--accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(4px);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      font-weight: 400;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span { 
+      color: var(--accent); 
+      font-style: italic;
+    }
+    .hero p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--glow);
+    }
+    .hero-cta:hover { 
+      background: var(--accent-dim); 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+    }
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .hero-stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .hero-stat {
+      background: rgba(22, 22, 22, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .hero-stat:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+    .hero-stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 5vw;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .products-section {
+      padding: 0 5vw 120px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      border-color: rgba(212, 175, 55, 0.5);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.05);
+    }
+    .product-img-placeholder {
+      width: 100%; height: 260px;
+      background: linear-gradient(145deg, #161616 0%, #1e1e1e 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .product-img-placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+    }
+    
+    /* ADDED: Image fit styling */
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .product-brand {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .product-pricing {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .price-block {}
+    .price-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .price-original { 
+      font-size: 1.2rem; 
+      font-weight: 400; 
+      color: var(--text);
+      font-family: 'DM Mono', monospace; 
+    }
+    .price-secondhand { 
+      font-size: 0.95rem; 
+      color: var(--muted);
+      font-family: 'DM Mono', monospace; 
+    }
+    .product-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--accent);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .product-card:hover .product-btn {
+      border-color: var(--accent);
+    }
+    .product-btn:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 4px 15px var(--glow);
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1; pointer-events: all;
+    }
+
+    /* ── MODAL BOX ── */
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%; max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(30px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+    .modal::-webkit-scrollbar { width: 6px; }
+    .modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+    
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+    .modal-header {
+      padding: 32px 32px 0;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 24px;
+    }
+    .modal-brand {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px; font-weight: 600;
+    }
+    .modal-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+    .modal-close {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { 
+      color: var(--text); 
+      background: rgba(255,255,255,0.08); 
+      transform: rotate(90deg); 
+    }
+
+    .modal-body { padding: 32px; }
+
+    /* ── FORM ELEMENTS ── */
+    .form-group { margin-bottom: 24px; }
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .form-control {
+      width: 100%;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 14px 16px;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+      appearance: none;
+    }
+    .form-control:focus { 
+      border-color: var(--accent); 
+      background: rgba(212, 175, 55, 0.02);
+    }
+    .form-control::placeholder { color: #555; }
+    
+    select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d4af37' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    select.form-control option {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    /* ── CONDITION TOGGLE ── */
+    .condition-toggle {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .condition-option { position: relative; }
+    .condition-option input[type="radio"] {
+      position: absolute; opacity: 0; pointer-events: none;
+    }
+    .condition-label {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 16px 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      height: 100%;
+    }
+    .condition-option input:checked + .condition-label {
+      border-color: var(--accent);
+      background: rgba(212, 175, 55, 0.05);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+    }
+    .condition-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .condition-title {
+      font-size: 0.85rem; font-weight: 500; color: var(--text);
+    }
+    .condition-price {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* ── QUANTITY ── */
+    .qty-control {
+      display: flex; align-items: center; gap: 0;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      width: fit-content;
+    }
+    .qty-btn {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      width: 48px; height: 48px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .qty-btn:hover { background: rgba(255,255,255,0.05); }
+    .qty-value {
+      width: 56px; text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 0;
+      height: 48px;
+      line-height: 48px;
+      user-select: none;
+    }
+
+    /* ── PRICE SUMMARY ── */
+    .price-summary {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 8px;
+    }
+    .price-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .price-row:last-child { margin-bottom: 0; }
+    .price-row.total {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 16px;
+      margin-top: 12px;
+    }
+    .price-row.total .amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .btn-order {
+      width: 100%;
+      background: var(--accent);
+      border: none;
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      box-shadow: 0 4px 15px var(--glow);
+    }
+    .btn-order:hover { 
+      background: var(--accent-dim); 
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+    }
+    .btn-order:disabled { 
+      opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 40px; right: 40px; z-index: 2000;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      min-width: 300px; max-width: 400px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      pointer-events: none;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .toast.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+    .toast-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .toast-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+    .toast-msg { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .toast.success .toast-icon { color: var(--success); }
+    .toast.error .toast-icon { color: var(--danger); border-color: rgba(230, 108, 108, 0.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.85rem;
+      background: #050505;
+    }
+    footer a { 
+      color: var(--accent); 
+      text-decoration: none; 
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--text); }
+
+    /* ── SPINNER ── */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 80px; }
+      .hero-visual { display: none; }
+      .hero h1 { font-size: clamp(2.5rem, 8vw, 3.2rem); }
+    }
+    
+    @media (max-width: 600px) {
+      nav { height: 64px; }
+      .nav-links { display: none; }
+      
+      .hero { padding-top: 60px; padding-bottom: 60px; }
+      .products-grid { grid-template-columns: 1fr; }
+      
+      .modal { border-radius: 20px 20px 0 0; max-height: 95vh; transform: translateY(100%); }
+      .modal-overlay { align-items: flex-end; padding: 0; }
+      .modal-overlay.active .modal { transform: translateY(0); }
+      .modal-header { padding: 24px 24px 0; }
+      .modal-body { padding: 24px; }
+      
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      
+      .toast { right: 20px; left: 20px; bottom: 20px; min-width: auto; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">B R I E F S</a>
+  <ul class="nav-links">
+    <li><a href="/">Shop</a></li>
+    <li><a href="/orders">Order History</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">New Collection 2025</div>
+    <h1>Men's Essentials,<br><span>Crafted to Last</span></h1>
+    <p>Premium men's briefs sourced from top brands. Available in original and second-hand condition at honest prices. Comfort that never compromises.</p>
+    <a href="#products" class="hero-cta">
+      Shop Now
+      <span>→</span>
+    </a>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <div class="hero-stat-number">6+</div>
+        <div class="hero-stat-label">Styles</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">₱150</div>
+        <div class="hero-stat-label">Starting at</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">2</div>
+        <div class="hero-stat-label">Conditions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header">
+    <div class="section-label">Our Collection</div>
+    <h2 class="section-title">Shop All Briefs</h2>
+  </div>
+  <div class="products-section">
+   <div class="products-grid">
+  {% for product in products %}
+  <!-- Changed " to ' in the onclick attribute below -->
+  <div class="product-card" onclick='openModal({{ product | tojson | safe }})'>
+    
+    <!-- ADDED: The 1,2,3,4,5,6 images loop logic goes here! -->
+  <div class="product-img-placeholder">
+  <img src="{{ url_for('static', filename='images/' + loop.cycle('1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg')) }}" 
+       alt="{{ product.name }}" 
+       class="product-img">
+</div>
+
+    <div class="product-body">
+      <div class="product-brand">{{ product.brand }}</div>
+      <div class="product-name">{{ product.name }}</div>
+      <div class="product-desc">{{ product.description }}</div>
+      <div class="product-pricing">
+        <div class="price-block">
+          <div class="price-label">Original</div>
+          <div class="price-original">₱{{ "%.2f"|format(product.original_price) }}</div>
+        </div>
+        <div class="price-block" style="text-align:right">
+          <div class="price-label">2nd Hand</div>
+          <div class="price-secondhand">₱{{ "%.2f"|format(product.secondhand_price) }}</div>
+        </div>
+      </div>
+      <!-- Added type="button" to prevent potential form issues -->
+      <button type="button" class="product-btn">Order Now</button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 BRIEFS for Men. School Project.</span>
+  <a href="/orders">View Order History →</a>
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-product-info">
+        <div class="modal-brand" id="modal-brand"></div>
+        <div class="modal-name" id="modal-name"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="modal-product-id" />
+      <input type="hidden" id="modal-orig-price" />
+      <input type="hidden" id="modal-sh-price" />
+
+      <!-- CONDITION -->
+      <div class="form-group">
+        <label class="form-label">Condition</label>
+        <div class="condition-toggle">
+          <div class="condition-option">
+            <input type="radio" name="condition" id="cond-original" value="original" checked onchange="updatePrice()">
+            <label class="condition-label" for="cond-original">
+              <span class="condition-icon">✨</span>
+              <span class="condition-title">Original</span>
+              <span class="condition-price" id="price-original-tag">₱0.00</span>
+            </label>
+          </div>
+          <div class="condition-option">
+            <input type="radio" name="condition" id="cond-secondhand" value="second_hand" onchange="updatePrice()">
+            <label class="condition-label" for="cond-secondhand">
+              <span class="condition-icon">♻️</span>
+              <span class="condition-title">Second Hand</span>
+              <span class="condition-price" id="price-sh-tag">₱0.00</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUANTITY -->
+      <div class="form-group">
+        <label class="form-label">Quantity</label>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <div class="qty-value" id="qty-display">1</div>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <!-- PAYMENT METHOD -->
+      <div class="form-group">
+        <label class="form-label" for="payment-method">Payment Method</label>
+        <select class="form-control" id="payment-method" onchange="updatePrice()">
+          <option value="cash">Cash on Delivery</option>
+          <option value="gcash">GCash</option>
+          <option value="credit_card">Credit / Debit Card</option>
+          <option value="bank_transfer">Bank Transfer</option>
+        </select>
+      </div>
+
+      <!-- CUSTOMER INFO -->
+      <div class="form-group">
+        <label class="form-label" for="customer-name">Your Name</label>
+        <input type="text" class="form-control" id="customer-name" placeholder="Juan dela Cruz" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="customer-email">Email Address</label>
+        <input type="email" class="form-control" id="customer-email" placeholder="juan@example.com" />
+      </div>
+
+      <!-- PRICE SUMMARY -->
+      <div class="form-group">
+        <label class="form-label">Price Summary</label>
+        <div class="price-summary">
+          <div class="price-row">
+            <span>Unit Price</span>
+            <span id="sum-unit">₱0.00</span>
+          </div>
+          <div class="price-row">
+            <span>Quantity</span>
+            <span id="sum-qty">× 1</span>
+          </div>
+          <div class="price-row total">
+            <span>Total</span>
+            <span class="amount" id="sum-total">₱0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-order" id="order-btn" onclick="submitOrder()">
+        Confirm Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon"></span>
+  <div class="toast-content">
+    <div class="toast-title" id="toast-title"></div>
+    <div class="toast-msg" id="toast-msg"></div>
+  </div>
+</div>
+
+<script>
+  let currentProduct = null;
+  let qty = 1;
+
+  function openModal(product) {
+    currentProduct = product;
+    qty = 1;
+
+    document.getElementById('modal-brand').textContent = product.brand;
+    document.getElementById('modal-name').textContent = product.name;
+    document.getElementById('modal-product-id').value = product.id;
+    document.getElementById('modal-orig-price').value = product.original_price;
+    document.getElementById('modal-sh-price').value = product.secondhand_price;
+
+    document.getElementById('price-original-tag').textContent = '₱' + formatPrice(product.original_price);
+    document.getElementById('price-sh-tag').textContent = '₱' + formatPrice(product.secondhand_price);
+
+    // Reset form
+    document.getElementById('cond-original').checked = true;
+    document.getElementById('qty-display').textContent = '1';
+    document.getElementById('customer-name').value = '';
+    document.getElementById('customer-email').value = '';
+    document.getElementById('payment-method').value = 'cash';
+
+    updatePrice();
+    document.getElementById('orderModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('orderModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click
+  document.getElementById('orderModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function changeQty(delta) {
+    qty = Math.max(1, Math.min(20, qty + delta));
+    document.getElementById('qty-display').textContent = qty;
+    updatePrice();
+  }
+
+  function getSelectedCondition() {
+    return document.querySelector('input[name="condition"]:checked').value;
+  }
+
+  function updatePrice() {
+    if (!currentProduct) return;
+    const condition = getSelectedCondition();
+    const unitPrice = condition === 'original'
+      ? parseFloat(currentProduct.original_price)
+      : parseFloat(currentProduct.secondhand_price);
+    const total = unitPrice * qty;
+
+    document.getElementById('sum-unit').textContent = '₱' + formatPrice(unitPrice);
+    document.getElementById('sum-qty').textContent = '× ' + qty;
+    document.getElementById('sum-total').textContent = '₱' + formatPrice(total);
+  }
+
+  function formatPrice(n) {
+    return parseFloat(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  async function submitOrder() {
+    const name = document.getElementById('customer-name').value.trim();
+    const email = document.getElementById('customer-email').value.trim();
+
+    if (!name) { showToast('error', 'Missing Info', 'Please enter your name.'); return; }
+    if (!email || !email.includes('@')) { showToast('error', 'Missing Info', 'Please enter a valid email.'); return; }
+
+    const condition = getSelectedCondition();
+    const unitPrice = condition === 'original'
+      ? parseFloat(currentProduct.original_price)
+      : parseFloat(currentProduct.secondhand_price);
+
+    const payload = {
+      product_id:     currentProduct.id,
+      quantity:       qty,
+      condition:      condition,
+      payment_method: document.getElementById('payment-method').value,
+      customer_name:  name,
+      customer_email: email,
+      unit_price:     unitPrice,
+      total_price:    unitPrice * qty,
+    };
+
+    const btn = document.getElementById('order-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Processing...';
+
+    try {
+      const res = await fetch('/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        closeModal();
+        showToast('success', 'Order Placed! 🎉', data.message);
+      } else {
+        showToast('error', 'Order Failed', data.message || 'Please try again.');
+      }
+    } catch (err) {
+      showToast('error', 'Network Error', 'Could not reach the server.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Confirm Order';
+    }
+  }
+
+  function showToast(type, title, msg) {
+    const toast = document.getElementById('toast');
+    toast.className = 'toast ' + type;
+    document.getElementById('toast-icon').textContent = type === 'success' ? '✓' : '✕';
+    document.getElementById('toast-title').textContent = title;
+    document.getElementById('toast-msg').textContent = msg;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 4500);
+  }
+</script>
+</body>
+</html>
